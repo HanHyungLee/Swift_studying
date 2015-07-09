@@ -23,5 +23,5 @@
 콜론 : 으로 key와 value를 구분한다.
 [key1: value1, key2: value2, key3: value3]
 
-\`var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB", "Dublin"]\`
+    var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB", "Dublin"]
 
