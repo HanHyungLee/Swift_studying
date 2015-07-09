@@ -19,13 +19,13 @@ var shoppingList = [“Eggs”, “Milk”]
 ```
 - isEmpty 메소드로 빈값 체크
 - append(_:) 메소드로 단일 값 추가
-
-> shoppingList.append("Flour")
-
+```
+shoppingList.append("Flour")
+```
 - += 연산자로 여러개 값 추가
-
-> shoppingList += ["Chocolate Spread" , "Cheese", "Butter"]
-
+```
+shoppingList += ["Chocolate Spread" , "Cheese", "Butter"]
+```
 - index으로 값 추출 (0부터 시작하는 zero-indexed)
 ```
 shopingList[0] = “Six eggs”
