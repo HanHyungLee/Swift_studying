@@ -65,4 +65,3 @@ enumerate()를 사용해 index와 value를 추출할 수 있다.
 [key1: value1, key2: value2, key3: value3]
 
     var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB", "Dublin"]
-
