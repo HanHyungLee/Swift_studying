@@ -1,4 +1,4 @@
-#Swift 2.0 Strudy
+#Swift 2.0 Study
 
 - Collection Type
 
