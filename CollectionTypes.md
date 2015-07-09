@@ -15,7 +15,7 @@ let으로 선언하면 변경불가능
 
 - Literal 문법
 
-   var shoppingList = [“Eggs”, “Milk”]
+    var shoppingList = [“Eggs”, “Milk”]
 
 - isEmpty 메소드로 빈값 체크
 - append(_:) 메소드로 값 추가
