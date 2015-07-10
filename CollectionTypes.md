@@ -72,9 +72,9 @@ var firstItem = shoppingList[0]		// "Eggs"
 var shoppingList = ["Eggs", "Milk", "Flour"]
 
 // index지정 값 변경
-shopingList[0] = "Six eggs"
+shoppingList[0] = "Six eggs"
 
-shopingLIst[0…2] = ["Bananas", "Apples"]		//  ["Eggs", "Bananas", "Apples", "Milk", "Flour"]
+shoppingList[0…2] = ["Bananas", "Apples"]		//  ["Eggs", "Bananas", "Apples", "Milk", "Flour"]
 ```
 
 - 삭제
