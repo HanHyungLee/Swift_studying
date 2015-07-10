@@ -2,56 +2,107 @@
 
 ## Collection Type
 
+- array, set, dictionary 3가지 기본 타입을 지원한다.
+- Swift에서는 저장할 수 있는 key와 value를 항상 명확하게 저장한다. 이것이 의미하는 것은 잘못된 타입으로 인한 실수를 방지하기 위함이다. 또한 콜렉션에서 되찾는 value의 타입에 대해서 확신을 가질 수 있다는 의미다.
+- Swift의 array, set, dictionary는 generic collection을 제공한다.
+- var로 선언하면 변경 가능 (mutable)
+- let으로 선언하면 변경불가능 (immutable)
+- 가장 좋은 방식은 변경이 필요 없을 때 let선언으로 immutable콜렉션으로 만드는 것이다. 이렇게 했을때 Swift 컴파일러가 성능을 효과적으로 해줄 것이다.
+
 ### Array
-- 순서대로 같은 자료형의 데이터가 저장되는 집합.
-- NSArray와 호환(bridge)된다.
+- 같은 자료형의 데이터가 순서대로 저장되는 집합.
+- Objective-C 의 NSArray 클래스와 호환(bridge) 된다.
 
-var로 선언하여 mutable 변경 가능
-let으로 선언하면 변경불가능 
-
-- 기본 선언
+- 선언과 초기화
 ```
+// 기본 배열 선언
+var shoppingLit: Array<String> = []
+
+// Literal 문법 선언
 var shoppingList: [String] = [“Eggs”, “Milk”]
-```
-- Literal 문법
-```
+
+// 형식 추론 선언
 var shoppingList = [“Eggs”, “Milk”]
+
+// 빈값 초기화
+shoppingList = []
+
+// 특정 크기로 초기화
+var threeDoubles = [Double](count: 3, repeatedValue: 0.0)		// [0.0, 0.0, 0.0]
 ```
+
+- 새로운 값 추가, append(_:) 메소드
+```
+var shoppingList = ["Eggs", "Milk"]
+shoppingList.append("Flour")	// "Eggs", "Milk”, "Flour"
+```
+
 - isEmpty 메소드로 빈값 체크
-- append(_:) 메소드로 단일 값 추가
 ```
-shoppingList.append("Flour")
+if shoppingList.isEmpty {
+    print("The shopping list is empty.")
+} else {
+    print("The shopping list is not empty.")
+}
+// prints "The shopping list is not empty.”
+
 ```
-- += 연산자로 여러개 값 추가
+
+- + , += 연산자
 ```
-shoppingList += ["Chocolate Spread" , "Cheese", "Butter"]
+var threeDoubles = [Double](count: 3, repeatedValue: 0.0)		// [0.0, 0.0, 0.0]
+var anotherThreeDoubles = [Double](count: 3, repeatedValue: 2.5)	// [2.5, 2.5, 2.5]
+var sixDoubles = threeDoubles + anotherThreeDoubles”	// [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
 ```
+
 - index으로 값 추출 (0부터 시작하는 zero-indexed)
 ```
+var shoppingList = ["Eggs", "Milk”, "Flour"]
+var firstItem = shoppingList[0]		// “Eggs”
+```
+
+- array 값 변경
+```
+var shoppingList = ["Eggs", "Milk”, "Flour"]
+
+// index지정 값 변경
 shopingList[0] = “Six eggs”
+
+shopingLIst[0…2] = [“Bananas”, “Apples”]		//  [“Eggs”, “Bananas”, “Apples”, "Milk”, "Flour”]
 ```
-- 범위 지정으로 여러개의 값을 바꿀 수 있다.
-```
-shopingLIst[4…6] = [“Bananas”, “Apples”]
-```
+
 - 삭제
 removeLast(), removeAtIndex(_:) 메소드로 삭제, 삭제시 삭제된 item이 리턴된다.
 ```
-let apples = shoppingList.removeLast()
+var shoppingList = ["Eggs", "Milk”, "Flour"]
+let flour = shoppingList.removeLast()	// "Flour" return and removed last index
 ```
 
 - 반복문
 for-in loop문으로 값을 가져올 수 있다.
 ```
+var shoppingList = ["Eggs", "Milk”, "Flour"]
+
 for item in shoppingList {
 	print(item)
 }
+
+// “Eggs”
+// “Milk”
+// “Flour”
 ```
-enumerate()를 사용해 index와 value를 추출할 수 있다.
+
+- enumerate()를 사용해 index와 value를 추출할 수 있다.
 ```
+var shoppingList = ["Eggs", "Milk”, "Flour"]
+
 for (index, value) in shoppingList.enumerate() {
     print("Item \(index + 1): \(value)")
 }
+
+// Item 1: “Eggs”
+// Item 2: “Milk”
+// Item 3: “Flour”
 ```
 
 ### Set
