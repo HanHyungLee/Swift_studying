@@ -115,6 +115,7 @@ for (index, value) in shoppingList.enumerate() {
 - 유일한 값의 집합 (데이터가 중복해서 저장되지 않는다. 중복데이터는 1개로 표시)
 - 같은 자료형의 데이터로 저장해야 한다.
 - 정렬되지 않는다.
+- Objective-C NSSet 클래스와 호환(bridge) 된다.
 - Set은 Hash Value를 지원한다.
 
 - 선언과 초기화
@@ -242,7 +243,7 @@ farmAnimals.isDisjointWith(cityAnimals)	// true
 - 같은 종류의 자료형  key와 value를 저장하는 집합.
 - 순서대로 저장된다.
 - key는 유니크한 값이어야 한다.
-- NSDictionary와 호환(bridge)된다.
+- Objective-C NSDictionary 클래스와 호환(bridge)된다.
 -콜론 : 으로 key와 value를 구분한다.
 
 - 선언과 초기화
