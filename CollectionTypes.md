@@ -19,10 +19,10 @@
 var shoppingLit: Array<String> = []
 
 // Literal 문법 선언
-var shoppingList: [String] = [“Eggs”, “Milk”]
+var shoppingList: [String] = ["Eggs”, "Milk”]
 
 // 형식 추론 선언
-var shoppingList = [“Eggs”, “Milk”]
+var shoppingList = ["Eggs”, "Milk”]
 
 // 빈값 초기화
 shoppingList = []
@@ -42,7 +42,7 @@ shoppingList.append("Flour")	// "Eggs", "Milk”, "Flour"
 var shoppingList = ["Eggs", "Milk"]
 
 // count
-print(“shoppingList count: \(shoppingList.count)”)	// shoppingList count: 2
+print("shoppingList count: \(shoppingList.count)”)	// shoppingList count: 2
 
 // 빈값 체크
 if shoppingList.isEmpty {
@@ -64,7 +64,7 @@ var sixDoubles = threeDoubles + anotherThreeDoubles”	// [0.0, 0.0, 0.0, 2.5, 2
 - index으로 값 추출 (0부터 시작하는 zero-indexed)
 ```
 var shoppingList = ["Eggs", "Milk”, "Flour"]
-var firstItem = shoppingList[0]		// “Eggs”
+var firstItem = shoppingList[0]		// "Eggs”
 ```
 
 - array 값 변경
@@ -72,9 +72,9 @@ var firstItem = shoppingList[0]		// “Eggs”
 var shoppingList = ["Eggs", "Milk”, "Flour"]
 
 // index지정 값 변경
-shopingList[0] = “Six eggs”
+shopingList[0] = "Six eggs”
 
-shopingLIst[0…2] = [“Bananas”, “Apples”]		//  [“Eggs”, “Bananas”, “Apples”, "Milk”, "Flour”]
+shopingLIst[0…2] = ["Bananas”, "Apples”]		//  ["Eggs”, "Bananas”, "Apples”, "Milk”, "Flour”]
 ```
 
 - 삭제
@@ -93,9 +93,9 @@ for item in shoppingList {
 	print(item)
 }
 
-// “Eggs”
-// “Milk”
-// “Flour”
+// "Eggs”
+// "Milk”
+// "Flour”
 ```
 
 - enumerate()를 사용해 index와 value를 추출할 수 있다.
@@ -106,9 +106,9 @@ for (index, value) in shoppingList.enumerate() {
     print("Item \(index + 1): \(value)")
 }
 
-// Item 1: “Eggs”
-// Item 2: “Milk”
-// Item 3: “Flour”
+// Item 1: "Eggs”
+// Item 2: "Milk”
+// Item 3: "Flour”
 ```
 
 ### Set
@@ -153,7 +153,7 @@ if favoriteGenres.isEmpty {
 ```
 var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
 
-favoriteGenres.insert("Jazz")	// ["Rock", "Classical", "Hip hop”, “Jazz”]
+favoriteGenres.insert("Jazz")	// ["Rock", "Classical", "Hip hop”, "Jazz”]
 ```
 
 - 삭제
@@ -319,7 +319,7 @@ if let removedValue = airports.removeValueForKey("LHR") {
 
 - 반복문
 ```
-var airports = ["YYZ": "Toronto Pearson", "LHR”:  "London, Heathrow“]
+var airports = ["YYZ": "Toronto Pearson", "LHR”:  "London, Heathrow"]
 
 // for-in loop  (key, value) 리턴
 for (airportCode, airportName) in airports {
@@ -345,7 +345,7 @@ for airportName in airports.values {
 
 - key와 value추출
 ```
-var airports = ["YYZ": "Toronto Pearson", "LHR”:  "London, Heathrow“]
+var airports = ["YYZ": "Toronto Pearson", "LHR”:  "London, Heathrow"]
 
 // key값만 추출, array형태로 리턴된다.
 let airportCodes = [String](airports.keys)	// airportCodes is ["YYZ", "LHR"]
