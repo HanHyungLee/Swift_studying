@@ -39,6 +39,9 @@ shoppingList.append("Flour")	// "Eggs", "Milk”, "Flour"
 
 - isEmpty 메소드로 빈값 체크
 ```
+var shoppingList = ["Eggs", "Milk"]
+
+
 if shoppingList.isEmpty {
     print("The shopping list is empty.")
 } else {
