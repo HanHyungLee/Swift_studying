@@ -37,11 +37,14 @@ var shoppingList = ["Eggs", "Milk"]
 shoppingList.append("Flour")	// "Eggs", "Milk”, "Flour"
 ```
 
-- isEmpty 메소드로 빈값 체크
+- count와 isEmpty 메소드로 갯수 체크
 ```
 var shoppingList = ["Eggs", "Milk"]
 
+// count
+print(“shoppingList count: \(shoppingList.count)”)	// shoppingList count: 2
 
+// 빈값 체크
 if shoppingList.isEmpty {
     print("The shopping list is empty.")
 } else {
@@ -112,8 +115,128 @@ for (index, value) in shoppingList.enumerate() {
 - 유일한 값의 집합 (데이터가 중복해서 저장되지 않는다. 중복데이터는 1개로 표시)
 - 같은 자료형의 데이터로 저장해야 한다.
 - 정렬되지 않는다.
+- Set은 Hash Value를 지원한다.
 
-- 집합처럼 연산자 api지원
+- 선언과 초기화
+```
+// 기본 배열 선언
+var letters = Set<Character>()
+
+// Literal 문법 선언
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+
+// 형식 추론 선언
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+
+// 빈값 초기화
+favoriteGenres = []
+```
+
+- count, isEmpty로 갯수 체크
+```
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+
+// coount
+print("I have \(favoriteGenres.count) favorite music genres.")		// prints "I have 3 favorite music genres.
+
+// 빈값 체크
+if favoriteGenres.isEmpty {
+    print("As far as music goes, I'm not picky.")
+} else {
+    print("I have particular music preferences.")
+}
+// prints "I have particular music preferences.
+```
+
+- 새로운 값 추가
+```
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+
+favoriteGenres.insert("Jazz")	// ["Rock", "Classical", "Hip hop”, “Jazz”]
+```
+
+- 삭제
+```
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
+
+if let removedGenre = favoriteGenres.remove("Rock") {
+    print("\(removedGenre)? I'm over it.")
+} else {
+    print("I never much cared for that.")
+}
+// prints "Rock? I'm over it.
+
+// 모두 삭제
+favortieGenres.removeAll()	// []
+```
+
+- 값 존재 유무 확인
+```
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop”, "Funk"]
+
+if favoriteGenres.contains("Funk") {
+    print("I get up on the good foot.")
+} else {
+    print("It's too funky in here.")
+}
+// prints "It's too funky in here.
+```
+
+- 반복문
+```
+var favoriteGenres: Set = ["Classical", "Jazz", "Hip hop”]
+
+// for-in loop
+for genre in favoriteGenres {
+    print("\(genre)")
+}
+// Classical
+// Jazz
+// Hip hop”
+
+// for-in loop & sort() 정렬
+for genre in favoriteGenres.sort() {
+    print("\(genre)")
+}
+// Classical
+// Hip hop
+// Jazz
+```
+
+- set 집합 연산
+```
+let oddDigits: Set = [1, 3, 5, 7, 9]
+let evenDigits: Set = [0, 2, 4, 6, 8]
+let singleDigitPrimeNumbers: Set = [2, 3, 5, 7]
+ 
+// 합집합
+oddDigits.union(evenDigits).sort()	// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+// 교집합
+oddDigits.intersect(evenDigits).sort()	// []
+
+// 차집합
+oddDigits.subtract(singleDigitPrimeNumbers).sort()	// [1, 9]
+
+// 베타적 집합
+oddDigits.exclusiveOr(singleDigitPrimeNumbers).sort()	// [1, 2, 9]
+```
+
+- 집합 포함관계
+```
+let houseAnimals: Set = ["🐶", "🐱"]
+let farmAnimals: Set = ["🐮", "🐔", "🐑", "🐶", "🐱"]
+let cityAnimals: Set = ["🐦", "🐭"]
+ 
+// houseAnimals 값이 armAnimals에 모두 포함하고 있는지 여부
+houseAnimals.isSubsetOf(farmAnimals)	// true
+
+// farmAnimals 값에 houseAnimals이 모두 포함되어 있는지 여부
+farmAnimals.isSupersetOf(houseAnimals)	// true
+
+// farmAnimals 값이 cityAnimals값에 포함하지 않는지 여부
+farmAnimals.isDisjointWith(cityAnimals)	// true
+```
 
 ### Dictionary
 - 같은 종류의 자료형  key와 value를 저장하는 집합.
