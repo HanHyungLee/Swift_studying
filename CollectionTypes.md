@@ -243,9 +243,112 @@ farmAnimals.isDisjointWith(cityAnimals)	// true
 - 순서대로 저장된다.
 - key는 유니크한 값이어야 한다.
 - NSDictionary와 호환(bridge)된다.
- 
- 
-콜론 : 으로 key와 value를 구분한다.
-[key1: value1, key2: value2, key3: value3]
+-콜론 : 으로 key와 value를 구분한다.
 
-    var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB", "Dublin"]
+- 선언과 초기화
+```
+// 기본선언
+var namesOfIntegers = [Int: String]()
+// namesOfIntegers is an empty [Int: String] dictionary
+
+// 1개 값 초기화
+namesOfIntegers[16] = "sixteen"
+
+// Literal 문법
+var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+
+// 형식 추론
+var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+
+// 빈값 초기화
+airports = [:]
+
+```
+
+- count, isEmpty로 갯수 체크
+```
+var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+
+// couint
+print("The airports dictionary contains \(airports.count) items.")	// prints "The airports dictionary contains 2 items.
+
+// 빈값 체크
+if airports.isEmpty {
+    print("The airports dictionary is empty.")
+} else {
+    print("The airports dictionary is not empty.")
+}
+// prints "The airports dictionary is not empty.
+```
+
+- 값 추가, 변경
+```
+var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+
+// 추가
+airports["LHR"] = "London"		// ["YYZ": "Toronto Pearson", "DUB": "Dublin”, "LHR”:  "London"	]
+
+// 변경
+airports["LHR"] = "London Heathrow”	// ["YYZ": "Toronto Pearson", "DUB": "Dublin”, "LHR”:  "London Heathrow"
+
+// updateValue(_: forKey:) 값 변경, 변경되기 전 값이 리턴된다.
+```
+var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+
+if let oldValue = airports.updateValue("Dublin Airport", forKey: "DUB") {
+    print("The old value for DUB was \(oldValue).")
+}
+// prints "The old value for DUB was Dublin.
+```
+
+- 삭제
+```
+var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin”, "LHR”:  "London"]
+
+// 삭제
+airports["DUB"] = nil
+
+// removeValueForKey() 메소드 사용, 삭제되는 값이 리턴된다.
+if let removedValue = airports.removeValueForKey("LHR") {
+    print("The removed airport's name is \(removedValue).")
+} else {
+    print("The airports dictionary does not contain a value for LHR.")
+}
+```
+
+- 반복문
+```
+var airports = ["YYZ": "Toronto Pearson", "LHR”:  "London, Heathrow“]
+
+// for-in loop  (key, value) 리턴
+for (airportCode, airportName) in airports {
+    print("\(airportCode): \(airportName)")
+}
+// YYZ: Toronto Pearson
+// LHR: London Heathrow
+
+// for-in loop key값만 리턴
+for airportCode in airports.keys {
+    print("Airport code: \(airportCode)")
+}
+// Airport code: YYZ
+// Airport code: LHR
+
+// for-in loop value값만 리턴
+for airportName in airports.values {
+    print("Airport name: \(airportName)")
+}
+// Airport name: Toronto Pearson
+// Airport name: London Heathrow
+```
+
+- key와 value추출
+```
+var airports = ["YYZ": "Toronto Pearson", "LHR”:  "London, Heathrow“]
+
+// key값만 추출, array형태로 리턴된다.
+let airportCodes = [String](airports.keys)	// airportCodes is ["YYZ", "LHR"]
+
+// value값만 추출, array형태로 리턴된다. 
+let airportNames = [String](airports.values)	// airportNames is ["Toronto Pearson", "London Heathrow"]
+```
