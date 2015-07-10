@@ -294,7 +294,7 @@ airports["LHR"] = "London"		// ["YYZ": "Toronto Pearson", "DUB": "Dublin", "LHR"
 airports["LHR"] = "London Heathrow"	// ["YYZ": "Toronto Pearson", "DUB": "Dublin", "LHR":  "London Heathrow"
 
 // updateValue(_: forKey:) 값 변경, 변경되기 전 값이 리턴된다.
-```
+
 var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
 
 if let oldValue = airports.updateValue("Dublin Airport", forKey: "DUB") {
@@ -345,6 +345,7 @@ for airportName in airports.values {
 ```
 
 - key와 value추출
+
 ```
 var airports = ["YYZ": "Toronto Pearson", "LHR":  "London, Heathrow"]
 
