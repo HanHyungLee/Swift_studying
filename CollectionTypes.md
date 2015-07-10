@@ -245,7 +245,7 @@ farmAnimals.isDisjointWith(cityAnimals)	// true
 - 순서대로 저장된다.
 - key는 유니크한 값이어야 한다.
 - Objective-C NSDictionary 클래스와 호환(bridge)된다.
--콜론 : 으로 key와 value를 구분한다.
+- 콜론 : 으로 key와 value를 구분한다.
 
 - 선언과 초기화
 ```
