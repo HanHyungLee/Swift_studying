@@ -160,6 +160,7 @@ favoriteGenres.insert("Jazz")	// ["Rock", "Classical", "Hip hop", "Jazz"]
 ```
 var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
 
+// 삭제된 값 리턴
 if let removedGenre = favoriteGenres.remove("Rock") {
     print("\(removedGenre)? I'm over it.")
 } else {
