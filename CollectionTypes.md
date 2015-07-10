@@ -168,7 +168,7 @@ if let removedGenre = favoriteGenres.remove("Rock") {
 // prints "Rock? I'm over it.
 
 // 모두 삭제
-favortieGenres.removeAll()	// []
+favoriteGenres.removeAll()	// []
 ```
 
 - 값 존재 유무 확인
