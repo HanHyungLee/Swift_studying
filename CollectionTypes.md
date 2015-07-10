@@ -19,10 +19,10 @@
 var shoppingLit: Array<String> = []
 
 // Literal 문법 선언
-var shoppingList: [String] = ["Eggs”, "Milk”]
+var shoppingList: [String] = ["Eggs", "Milk"]
 
 // 형식 추론 선언
-var shoppingList = ["Eggs”, "Milk”]
+var shoppingList = ["Eggs", "Milk"]
 
 // 빈값 초기화
 shoppingList = []
@@ -34,7 +34,7 @@ var threeDoubles = [Double](count: 3, repeatedValue: 0.0)		// [0.0, 0.0, 0.0]
 - 새로운 값 추가, append(_:) 메소드
 ```
 var shoppingList = ["Eggs", "Milk"]
-shoppingList.append("Flour")	// "Eggs", "Milk”, "Flour"
+shoppingList.append("Flour")	// "Eggs", "Milk", "Flour"
 ```
 
 - count와 isEmpty 메소드로 갯수 체크
@@ -42,7 +42,7 @@ shoppingList.append("Flour")	// "Eggs", "Milk”, "Flour"
 var shoppingList = ["Eggs", "Milk"]
 
 // count
-print("shoppingList count: \(shoppingList.count)”)	// shoppingList count: 2
+print("shoppingList count: \(shoppingList.count)")	// shoppingList count: 2
 
 // 빈값 체크
 if shoppingList.isEmpty {
@@ -50,7 +50,7 @@ if shoppingList.isEmpty {
 } else {
     print("The shopping list is not empty.")
 }
-// prints "The shopping list is not empty.”
+// prints "The shopping list is not empty."
 
 ```
 
@@ -58,57 +58,57 @@ if shoppingList.isEmpty {
 ```
 var threeDoubles = [Double](count: 3, repeatedValue: 0.0)		// [0.0, 0.0, 0.0]
 var anotherThreeDoubles = [Double](count: 3, repeatedValue: 2.5)	// [2.5, 2.5, 2.5]
-var sixDoubles = threeDoubles + anotherThreeDoubles”	// [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
+var sixDoubles = threeDoubles + anotherThreeDoubles"	// [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
 ```
 
 - index으로 값 추출 (0부터 시작하는 zero-indexed)
 ```
-var shoppingList = ["Eggs", "Milk”, "Flour"]
-var firstItem = shoppingList[0]		// "Eggs”
+var shoppingList = ["Eggs", "Milk", "Flour"]
+var firstItem = shoppingList[0]		// "Eggs"
 ```
 
 - array 값 변경
 ```
-var shoppingList = ["Eggs", "Milk”, "Flour"]
+var shoppingList = ["Eggs", "Milk", "Flour"]
 
 // index지정 값 변경
-shopingList[0] = "Six eggs”
+shopingList[0] = "Six eggs"
 
-shopingLIst[0…2] = ["Bananas”, "Apples”]		//  ["Eggs”, "Bananas”, "Apples”, "Milk”, "Flour”]
+shopingLIst[0…2] = ["Bananas", "Apples"]		//  ["Eggs", "Bananas", "Apples", "Milk", "Flour"]
 ```
 
 - 삭제
 removeLast(), removeAtIndex(_:) 메소드로 삭제, 삭제시 삭제된 item이 리턴된다.
 ```
-var shoppingList = ["Eggs", "Milk”, "Flour"]
+var shoppingList = ["Eggs", "Milk", "Flour"]
 let flour = shoppingList.removeLast()	// "Flour" return and removed last index
 ```
 
 - 반복문
 for-in loop문으로 값을 가져올 수 있다.
 ```
-var shoppingList = ["Eggs", "Milk”, "Flour"]
+var shoppingList = ["Eggs", "Milk", "Flour"]
 
 for item in shoppingList {
 	print(item)
 }
 
-// "Eggs”
-// "Milk”
-// "Flour”
+// "Eggs"
+// "Milk"
+// "Flour"
 ```
 
 - enumerate()를 사용해 index와 value를 추출할 수 있다.
 ```
-var shoppingList = ["Eggs", "Milk”, "Flour"]
+var shoppingList = ["Eggs", "Milk", "Flour"]
 
 for (index, value) in shoppingList.enumerate() {
     print("Item \(index + 1): \(value)")
 }
 
-// Item 1: "Eggs”
-// Item 2: "Milk”
-// Item 3: "Flour”
+// Item 1: "Eggs"
+// Item 2: "Milk"
+// Item 3: "Flour"
 ```
 
 ### Set
@@ -153,7 +153,7 @@ if favoriteGenres.isEmpty {
 ```
 var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]
 
-favoriteGenres.insert("Jazz")	// ["Rock", "Classical", "Hip hop”, "Jazz”]
+favoriteGenres.insert("Jazz")	// ["Rock", "Classical", "Hip hop", "Jazz"]
 ```
 
 - 삭제
@@ -173,7 +173,7 @@ favortieGenres.removeAll()	// []
 
 - 값 존재 유무 확인
 ```
-var favoriteGenres: Set = ["Rock", "Classical", "Hip hop”, "Funk"]
+var favoriteGenres: Set = ["Rock", "Classical", "Hip hop", "Funk"]
 
 if favoriteGenres.contains("Funk") {
     print("I get up on the good foot.")
@@ -185,7 +185,7 @@ if favoriteGenres.contains("Funk") {
 
 - 반복문
 ```
-var favoriteGenres: Set = ["Classical", "Jazz", "Hip hop”]
+var favoriteGenres: Set = ["Classical", "Jazz", "Hip hop"]
 
 // for-in loop
 for genre in favoriteGenres {
@@ -193,7 +193,7 @@ for genre in favoriteGenres {
 }
 // Classical
 // Jazz
-// Hip hop”
+// Hip hop"
 
 // for-in loop & sort() 정렬
 for genre in favoriteGenres.sort() {
@@ -287,10 +287,10 @@ if airports.isEmpty {
 var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
 
 // 추가
-airports["LHR"] = "London"		// ["YYZ": "Toronto Pearson", "DUB": "Dublin”, "LHR”:  "London"	]
+airports["LHR"] = "London"		// ["YYZ": "Toronto Pearson", "DUB": "Dublin", "LHR":  "London"	]
 
 // 변경
-airports["LHR"] = "London Heathrow”	// ["YYZ": "Toronto Pearson", "DUB": "Dublin”, "LHR”:  "London Heathrow"
+airports["LHR"] = "London Heathrow"	// ["YYZ": "Toronto Pearson", "DUB": "Dublin", "LHR":  "London Heathrow"
 
 // updateValue(_: forKey:) 값 변경, 변경되기 전 값이 리턴된다.
 ```
@@ -304,7 +304,7 @@ if let oldValue = airports.updateValue("Dublin Airport", forKey: "DUB") {
 
 - 삭제
 ```
-var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin”, "LHR”:  "London"]
+var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin", "LHR":  "London"]
 
 // 삭제
 airports["DUB"] = nil
@@ -319,7 +319,7 @@ if let removedValue = airports.removeValueForKey("LHR") {
 
 - 반복문
 ```
-var airports = ["YYZ": "Toronto Pearson", "LHR”:  "London, Heathrow"]
+var airports = ["YYZ": "Toronto Pearson", "LHR":  "London, Heathrow"]
 
 // for-in loop  (key, value) 리턴
 for (airportCode, airportName) in airports {
@@ -345,7 +345,7 @@ for airportName in airports.values {
 
 - key와 value추출
 ```
-var airports = ["YYZ": "Toronto Pearson", "LHR”:  "London, Heathrow"]
+var airports = ["YYZ": "Toronto Pearson", "LHR":  "London, Heathrow"]
 
 // key값만 추출, array형태로 리턴된다.
 let airportCodes = [String](airports.keys)	// airportCodes is ["YYZ", "LHR"]
