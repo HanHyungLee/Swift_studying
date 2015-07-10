@@ -16,7 +16,7 @@
 - 선언과 초기화
 ```
 // 기본 배열 선언
-var shoppingLit: Array<String> = []
+var shoppingList: Array<String> = []
 
 // Literal 문법 선언
 var shoppingList: [String] = ["Eggs", "Milk"]
