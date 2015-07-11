@@ -3,7 +3,7 @@
 ## Collection Type
 
 - array, set, dictionary 3가지 기본 타입을 지원한다.
-- Swift에서는 저장할 수 있는 key와 value를 항상 명확하게 저장한다. 이것이 의미하는 것은 잘못된 타입으로 인한 실수를 방지하기 위함이다. 또한 콜렉션에서 되찾는 value의 타입에 대해서 확신을 가질 수 있다는 의미다.
+- Swift에서는 저장할 수 있는 key와 value를 항상 명확하게 저장한다. 이것이 의미하는 것은 잘못된 타입으로 인한 실수를 방지하기 위함이다. 또한 콜렉션에서 되찾는 value의 타입에 대해서 확신을 가질 수 있다+는 의미다.
 - Swift의 array, set, dictionary는 generic collection을 제공한다.
 - var로 선언하면 변경 가능 (mutable)
 - let으로 선언하면 변경불가능 (immutable)
@@ -59,6 +59,10 @@ if shoppingList.isEmpty {
 var threeDoubles = [Double](count: 3, repeatedValue: 0.0)		// [0.0, 0.0, 0.0]
 var anotherThreeDoubles = [Double](count: 3, repeatedValue: 2.5)	// [2.5, 2.5, 2.5]
 var sixDoubles = threeDoubles + anotherThreeDoubles"	// [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
+
+var favoriteGenres = ["Rock", "Classical", "Hip hop"]
+var genres = ["Jazz"]
+favoriteGenres += genres
 ```
 
 - index으로 값 추출 (0부터 시작하는 zero-indexed)
