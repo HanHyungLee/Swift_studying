@@ -58,11 +58,11 @@ if shoppingList.isEmpty {
 ```
 var threeDoubles = [Double](count: 3, repeatedValue: 0.0)		// [0.0, 0.0, 0.0]
 var anotherThreeDoubles = [Double](count: 3, repeatedValue: 2.5)	// [2.5, 2.5, 2.5]
-var sixDoubles = threeDoubles + anotherThreeDoubles"	// [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
+var sixDoubles = threeDoubles + anotherThreeDoubles"			// [0.0, 0.0, 0.0, 2.5, 2.5, 2.5]
 
 var favoriteGenres = ["Rock", "Classical", "Hip hop"]
 var genres = ["Jazz"]
-favoriteGenres += genres
+favoriteGenres += genres		// [“Rock", "Classical", "Hip hop", "Jazz"]
 ```
 
 - index으로 값 추출 (0부터 시작하는 zero-indexed)
