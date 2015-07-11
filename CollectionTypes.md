@@ -9,7 +9,7 @@
 - let으로 선언하면 변경불가능 (immutable)
 - 가장 좋은 방식은 변경이 필요 없을 때 let선언으로 immutable콜렉션으로 만드는 것이다. 이렇게 했을때 Swift 컴파일러가 성능을 효과적으로 해줄 것이다.
 
-### Array
+### 1. Array
 - 같은 자료형의 데이터가 순서대로 저장되는 집합.
 - Objective-C 의 NSArray 클래스와 호환(bridge) 된다.
 
@@ -115,7 +115,7 @@ for (index, value) in shoppingList.enumerate() {
 // Item 3: "Flour"
 ```
 
-### Set
+### 2. Set
 - 유일한 값의 집합 (데이터가 중복해서 저장되지 않는다. 중복데이터는 1개로 표시)
 - 같은 자료형의 데이터로 저장해야 한다.
 - 정렬되지 않는다.
@@ -244,7 +244,7 @@ farmAnimals.isSupersetOf(houseAnimals)	// true
 farmAnimals.isDisjointWith(cityAnimals)	// true
 ```
 
-### Dictionary
+### 3. Dictionary
 - 같은 종류의 자료형  key와 value를 저장하는 집합.
 - 순서대로 저장된다.
 - key는 유니크한 값이어야 한다.
