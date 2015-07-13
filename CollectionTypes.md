@@ -275,7 +275,7 @@ airports = [:]
 ```
 var airports = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
 
-// couint
+// count
 print("The airports dictionary contains \(airports.count) items.")	// prints "The airports dictionary contains 2 items.
 
 // 빈값 체크
