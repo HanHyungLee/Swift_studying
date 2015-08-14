@@ -293,7 +293,7 @@ if let topItem = stackOfStrings.topItem {
 
  사용자정의 generic 타입을 만들때, 타입 제약을 정의할 수 있고 이들 제약은 generic 프로그래밍의 힘을 제공한다. Hashable 같은 추상 개념은 명확한 타입보다 개념적 특성의 측면에서 타입을 특성화 한다.
 
- #### 타입 제약 문법 Type Constraint Syntax
+#### 타입 제약 문법 Type Constraint Syntax
  타입 제약은 한 클래스 또는 프로토콜에 한정하여 타입 파라미터의 이름 뒤에 쓸 수 있다. 타입 파라미터 목록의 부분을 콜론(,)으로 나뉜다. 기본 문법은 아래와 같이 generic 함수의 타입 제약으로 보여진다 (비록 generic 타입과 같은 문법이지만).
 ```
 func someFunction<T: SomeClass, U: SomeProtocol>(someT: T, someU: U) {
