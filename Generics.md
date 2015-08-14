@@ -251,21 +251,38 @@ let fromTheTop = stackOfStrings.pop()
 여기 popping된 스택의 제일 위의 값을 볼 수 있다:
 
 
+
 ### Extending a Generic Type
-  generic타입을 확장할 때, 당신은 확장의 정의의 한 부분으로서 타입 파라미터 목록을 제공하지 않는다. 대신, 원래 타입으로부터 타입 파라미터 목록을 정의는 확장의 내용안에서 가능하고, 원래 타입 파라미터 이름은 원래 정의로부터 타입 파라미터를 참조하는데 사용된다.
+ generic타입을 확장할 때, 당신은 확장의 정의의 한 부분으로서 타입 파라미터 목록을 제공하지 않는다. 대신, 원래 타입으로부터 타입 파라미터 목록을 정의는 확장의 내용안에서 가능하고, 원래 타입 파라미터 이름은 원래 정의로부터 타입 파라미터를 참조하는데 사용된다.
 
  다음 예제는 generic Stack 타입의 확장으로 topItem 읽기전용인 계산 프로퍼티를 추가한다, 최상위 item을 스택으로부터 popping 없이 반환한다.
 ```
-예제
+extension Stack {
+    var topItem: T? {
+
+        return items.isEmpty ? nil : items[items.count - 1]
+
+    }
+
+}
+
 ```
+
  topItem 프로퍼티는 T 타입의 옵셔널 값을 반환한다. 스택이 비어 있다면, topItem은 nil을 반환; 스택이 비어있지 않으면, items 배열에 마지막 값을 반환한다.
 
  이 확장은 타입 파라미터 목록을 정의하지 않음에 참고한다. 대신, Stack 타입의 존재하는 타입 파라미터 이름 T는 topItem 계산 프로퍼티의 옵셔널 타입으로 나타내는 확장에 사용된다.
 
  topItem 계산 프로퍼티는 어떤 Stack 인스턴스에서 접근하고, top item 제거없이 질의할 수 있다:
 ```
-예제
+if let topItem = stackOfStrings.topItem {
+    print("The top item on the stack is \(topItem).")
+
+}
+
+// prints "The top item on the stack is tres.”
+
 ```
+
 
 ### Type Constraints 형식 제약
  swapTwoValues(_:_:) 함수와 Stack 타입은 어떠한 타입에서 동작할 수 있다. 그러나, 때때로 generic 함수와 generic 타입을 사용할 때 특정 타입을 강제할떄 유연해진다. 타입 제약은 지정된 타입파라미터를 상속받는 특정 클래스로부터, 또는 개별적인 프로토콜 또는 프로토콜 결합과 일치해야한다.
@@ -279,38 +296,110 @@ let fromTheTop = stackOfStrings.pop()
  #### 타입 제약 문법 Type Constraint Syntax
  타입 제약은 한 클래스 또는 프로토콜에 한정하여 타입 파라미터의 이름 뒤에 쓸 수 있다. 타입 파라미터 목록의 부분을 콜론(,)으로 나뉜다. 기본 문법은 아래와 같이 generic 함수의 타입 제약으로 보여진다 (비록 generic 타입과 같은 문법이지만).
 ```
-예제
+func someFunction<T: SomeClass, U: SomeProtocol>(someT: T, someU: U) {
+    // function body goes here
+
+}
+
 ```
+
  위에 가정된 함수는 2개의 파라미터를 가진다. 첫번쨰 타입 파라미터 T는 SomeClass의 서브클래스로 T의 필요하는 타입 제약을 가진다. 2번째 타입 파라미터 U는 SomeProtocol 프로토콜을 준수하는 U를 필요하는 타입제약을 가진다.
 
 #### 타입 제약 작동 Type Constraints in Action
  여기 non-generic 함수인 findStringIndex가 있다, String 값을 가지고 String값의 배열에서 찾는다. findStringIndex(_:_:) 함수는 Int 값을 반환한다, 배열에서 첫번째 매칭된 문자열을 찾은 경우 index를 반환하거나 찾지 못한경우 nil을 반환한다.
 ```
-예제
+func findStringIndex(array: [String], _ valueToFind: String) -> Int? {
+    for (index, value) in array.enumerate() {
+
+        if value == valueToFind {
+
+            return index
+
+        }
+
+    }
+
+
+
+    return nil
+
+}
+
 ```
+
 findStringIndex(_:_:) 함수는 문자열의 배열에서 문자열 값을 찾을 수 있다:
 ```
-예제
+let strings = ["cat", "dog", "llama", "parakeet", "terrapin"]
+if let foundIndex = findStringIndex(strings, "llama") {
+
+    print("The Index llama is \(foundIndex)")
+
+}
+
+// prints "The Index llama is 2”
+
 ```
+
 
 생략
 
 ```
-예제
+func findIndex<T>(array: [T], _ valueToFind: T) -> Int? {
+    for (index, value) in array.enumerate() {
+
+        if value == valueToFind {
+
+            return index
+
+        }
+
+    }
+
+    
+
+    return nil
+
+}
+
 ```
+
  위와 같이 작성된 함수는 컴파일 되지 않는다. 문제는 “if value == valueToFind”, 동등 체크다. 이는 Swift의 모든 타입이 동등 연산자(==)로 비교될 수 없기 때문이다. 만약 복잡한 데이터 모델을 표현한 클래스나 구조체를 만든다면, Swift에서 같다라고 추측할 수 없다. 이때문에, 모든 가능한 타입 T에 대해 보장해주지 못한다. 따라서 컴파일 에러가 발생한다.
 
  모두가 그렇지 않다. Swift 표준 라이브러리는 Equatable 프로토콜을 정의한다, 동등연산자(==) 부정연산자 (!=) 로 2가지 타입의 값을 비교할 수 있도록 구현되어 있다. 모든 Swift의 표준 타입은 자동적으로 Equatable 프로토콜을 지원한다.
 
 Equatable인 타입은 findIndex 함수에서 안전하게 사용될 수 있다, 이유는 동등연산자 지원을 보장하기 때문이다. 이 사실을 표현하면, 함수를 정의할 때 타입 인자의 정의의 한 부분으로써 Equatable의 타입 제약으로 작성한다.
 ```
-예제
+func findIndex<T: Equatable>(array: [T], _ valueToFind: T) -> Int? {
+    for (index, value) in array.enumerate() {
+
+        if value == valueToFind {
+
+            return index
+
+        }
+
+    }
+
+    
+
+    return nil
+
+}
+
 ```
  findIndex의 하나의 타입 파라미터는 T: Equatable이다, 이것은 “어떠한 타입 T 가 Equatable 프로토콜에 일치한다”를 의미한다.
 
  findIndex(_:_:) 함수는 컴파일이 성공적이고 Equatable로 Double과 String같은 어떠한 타입이라도 사용가능하다.
 ```
-예제
+let doubleIndex = findIndex([3.14159, 0.1, 0.25], 9.3)
+// doubleIndex is an optional Int with no value, because 9.3 is not in the array
+
+
+
+let stringIndex = findIndex(["Mike", "Malcolm", "Andrea"], "Andrea")
+
+// stringIndex is an optional Int containing a value of 2
+
 ```
 
 
