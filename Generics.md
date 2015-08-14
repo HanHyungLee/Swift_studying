@@ -7,20 +7,67 @@
 ### Generics으로 문제 해결
  제너릭을 일반적인, 2개의 Int 값을 바꾸는 제너릭을 사용하지 않은 swapTwoInts 함수다:
 ```
-예제
+func swapTwoInts(inout a: Int, inout _ b: Int) {
+
+    let temporaryA = a
+
+    a = b
+
+    b = temporaryA
+
+}
+
 ```
  이 함수는 a와 b의 값을 바꾸는 in-out 파라미터로 만들었다. in-Out 파라미터 설명 참조.
 
  swapTwoInts(_:_:)는 본래의 b 값을 a에 넣고, 본래의 a값을 b에 넣어 바꾸는 함수다. 당신은 이 함수를 2개 Int 값을 바꾸기위해 호출할 수 있다.
 
 ```
-예제
+var someInt = 3
+
+
+
+var anotherInt = 107
+
+
+
+swapTwoInts(&someInt, &anotherInt)
+
+print("someInt is now \(someInt), and anotherInt is now \(anotherInt)”)
+
+// prints “someInt is now 107, and anotherInt is now 3"
+
 ```
 
  swapTwoInts(_:_:) 함수는 유익하다, 그러나 오직 Int값만 사용할 수 있다. 만약 당신이 2개의 String 값이나 2개의 Double값을 바꾸길 원한다면, 당신은 swapTwoStrings와 swapTwoDoubles(_:_:) 함수를 아래에 보여지는 것처럼 함수를 더 가져야한다:
 
 ```
-예제 2개
+func swapTwoStrings(inout a: String, inout _ b: String)
+
+{
+
+    let temporaryA = a
+
+    a = b
+
+    b = temporaryA
+
+}
+
+
+
+func swapTwoDoubles(inout a: Double, inout _ b: Double)
+
+{
+
+    let temporaryA = a
+
+    a = b
+
+    b = temporaryA
+
+}
+
 ```
 
  당신은 swapTwoInts, swapTwoStrings 와 swapTwoDoubles(_:_:) 함수는 똑같은 본문을 가지고 있게 된다. 오직 승인하는 (Int, String, Double) 값의 타입만이 다르다.
@@ -35,13 +82,27 @@
  Generic 함수는 어떠한 타입이라고 동작할 수 있다. 여기 swapTowInts(_:_:) 함수로 부터 generic 버전의 swapTwoValues 이다:
 
 ```
-예제
+func swapTwoValues<T>(inout a: T, inout _ b: T)
+
+{
+
+    let temporaryA = a
+
+    a = b
+
+    b = temporaryA
+
+}
+
 ```
 
 swapTwoValues(_:_:) 함수 내용은 swapTwoInts(_:_:) 함수와 동일한 내용이다. 그러나 swapTwoValues의 첫째줄은 swapTwoInts에서 다르다. 여기 첫번쨰 라인 비교:
 
 ```
-예제
+func swapTwoInts(inout a: Int, inout _ b: Int)
+
+func swapTwoInts<T>(inout a: T, inout _ b: T)
+
 ```
 
  함수의 generic 버전은 actual type 이름 (Int, String 또는 Double) 대신 placeholder 타입 이름 (여기서 T로 불리움) 으로 사용했다. placeholder 타입 이름은 무조건 T라고 말하진 않지만, a와 b둘다 같은 타입 T라고 말한다. 어떠한 무엇이든 T로 표현할 수 있다. swapTwoValues(_:_:) 함수가 호출될 때마다 결정되는 T의 자리에 actual 타입이 사용된다.
@@ -53,7 +114,24 @@ swapTwoValues(_:_:) 함수 내용은 swapTwoInts(_:_:) 함수와 동일한 내�
  2가지 예제가 아래에 있다, T는 각각 Int와 String이다:
 
 ```
-예제
+var someInt = 3
+
+var anotherInt = 107
+
+swapTwoValues(&someInt, &anotherInt)
+
+// some Int is now 107, and anotherInt is now 3
+
+
+
+var someString = "hello"
+
+var anotherString = "world"
+
+swapTwoStrings(&someString, &anotherString)
+
+// someString is now "world", and anotherString is now "hello"
+
 ```
 ```
 참고
@@ -99,7 +177,24 @@ swapTwoValues(_:_:) 함수 내용은 swapTwoInts(_:_:) 함수와 동일한 내�
  여기 어떻게 non-generic 버전의 스택을 작성하는지, Int 값의 스택의 경우다:
 
 ```
-예제
+struct IntStack {
+
+    var items = [Int]()
+
+    mutating func push(item: Int) {
+
+        items.append(item)
+
+    }
+
+    mutating func pop() -> Int {
+
+        return items.removeLast()
+
+    }
+
+}
+
 ```
 
  이 구조체는 items라는 스택의 값을 저장하는 Array 프로퍼티를 사용한다. Stack은 2개의 메소드를 제공한다, push와 pop, push 와 pop 값은 스텍에 값을 on and off 한다. 이 메소드들은 mutaing 으로 선언, 이유는 구조체의 items 배열이 수정(또는 변화)이 필요하기 때문이다.
@@ -109,7 +204,24 @@ swapTwoValues(_:_:) 함수 내용은 swapTwoInts(_:_:) 함수와 동일한 내�
  여기 generic 버전의 샘플 코드이다:
 
 ```
-예제
+struct Stack<T> {
+
+    var items = [T]()
+
+    mutating func push(item: T) {
+
+        items.append(item)
+
+    }
+
+    mutating func pop() -> T {
+
+        return items.removeLast()
+
+    }
+
+}
+
 ```
 
  참고 generic 버전의 Stack은 본질적으로 non-generic 버전과 같지만, Int파입의 actual 타입 대신  placeholder 타입 파라미터 T로 바꾼다. 이 타입 파라미터는 구조체 이름 뒤에 <T> 로 작성하여 넣는다.
@@ -124,7 +236,18 @@ pop 메소드는 지정된 T타입의 값을 리턴한다.
  당신은 angle brackets안에 저장할 타입을 쓰는 새로운 Stack 인스턴스를 만든다. 예를 들어, 문자열의 새로운 스택을 만들때, 당신은 Stack<String>()로 쓴다:
 
 ```
-예제
+var stackOfStrings = Stack<String>()
+
+stackOfStrings.push("uno")
+
+stackOfStrings.push("dos")
+
+stackOfStrings.push("tres")
+
+stackOfStrings.push("cuatro")
+
+// the stack now contains 4 strings
+
 ```
 
 여기 stackOfString를 보면 4개의 값이 pushing된 후를 볼 수 있다:
@@ -133,7 +256,10 @@ pop 메소드는 지정된 T타입의 값을 리턴한다.
  Popping한 스택의 반환되는 값과 제일 위의 값 “cuatro"이 제거된다:
 
 ```
-예제
+let fromTheTop = stackOfStrings.pop()
+
+// fromTheTop is equal to "cuatro", and the stack now contains 3 strings
+
 ```
 
 여기 popping된 스택의 제일 위의 값을 볼 수 있다:
@@ -142,6 +268,10 @@ pop 메소드는 지정된 T타입의 값을 리턴한다.
 
 ### Extending a Generic Type
  generic타입을 확장할 때,
+
+### Type Constraints 형식 제약
+
+
 
 
 
