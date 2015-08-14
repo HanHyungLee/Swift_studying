@@ -25,11 +25,7 @@ func swapTwoInts(inout a: Int, inout _ b: Int) {
 ```
 var someInt = 3
 
-
-
 var anotherInt = 107
-
-
 
 swapTwoInts(&someInt, &anotherInt)
 
@@ -43,7 +39,6 @@ print("someInt is now \(someInt), and anotherInt is now \(anotherInt)”)
 
 ```
 func swapTwoStrings(inout a: String, inout _ b: String)
-
 {
 
     let temporaryA = a
@@ -54,10 +49,7 @@ func swapTwoStrings(inout a: String, inout _ b: String)
 
 }
 
-
-
 func swapTwoDoubles(inout a: Double, inout _ b: Double)
-
 {
 
     let temporaryA = a
@@ -83,7 +75,6 @@ func swapTwoDoubles(inout a: Double, inout _ b: Double)
 
 ```
 func swapTwoValues<T>(inout a: T, inout _ b: T)
-
 {
 
     let temporaryA = a
@@ -102,7 +93,6 @@ swapTwoValues(_:_:) 함수 내용은 swapTwoInts(_:_:) 함수와 동일한 내�
 func swapTwoInts(inout a: Int, inout _ b: Int)
 
 func swapTwoInts<T>(inout a: T, inout _ b: T)
-
 ```
 
  함수의 generic 버전은 actual type 이름 (Int, String 또는 Double) 대신 placeholder 타입 이름 (여기서 T로 불리움) 으로 사용했다. placeholder 타입 이름은 무조건 T라고 말하진 않지만, a와 b둘다 같은 타입 T라고 말한다. 어떠한 무엇이든 T로 표현할 수 있다. swapTwoValues(_:_:) 함수가 호출될 때마다 결정되는 T의 자리에 actual 타입이 사용된다.
@@ -122,8 +112,6 @@ swapTwoValues(&someInt, &anotherInt)
 
 // some Int is now 107, and anotherInt is now 3
 
-
-
 var someString = "hello"
 
 var anotherString = "world"
@@ -131,8 +119,8 @@ var anotherString = "world"
 swapTwoStrings(&someString, &anotherString)
 
 // someString is now "world", and anotherString is now "hello"
-
 ```
+
 ```
 참고
  swapTwoValues(_:_:) 함수는 Swift 표준 라이브러의 한부분인 swap이라는 generic 함수에서 영감을 받아 정의했다, 당신의 앱에서 자동적으로 만들어져 사용한다. 당신의 코드에서 swapTwoValues(_:_:) 함수를 사용할 필요성이 있다면, Swift의 swap(_:_:) 함수를 사용하는게 더 낫다.
@@ -247,7 +235,6 @@ stackOfStrings.push("tres")
 stackOfStrings.push("cuatro")
 
 // the stack now contains 4 strings
-
 ```
 
 여기 stackOfString를 보면 4개의 값이 pushing된 후를 볼 수 있다:
@@ -259,7 +246,6 @@ stackOfStrings.push("cuatro")
 let fromTheTop = stackOfStrings.pop()
 
 // fromTheTop is equal to "cuatro", and the stack now contains 3 strings
-
 ```
 
 여기 popping된 스택의 제일 위의 값을 볼 수 있다:
