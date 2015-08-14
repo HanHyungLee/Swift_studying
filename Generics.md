@@ -18,7 +18,7 @@ func swapTwoInts(inout a: Int, inout _ b: Int) {
 }
 
 ```
- 이 함수는 a와 b의 값을 바꾸는 in-out 파라미터로 만들었다. in-Out 파라미터 설명 참조.
+ 이 함수는 a와 b의 값을 바꾸는 in-out 파라미터로 만들었다.
 
  swapTwoInts(_:_:)는 본래의 b 값을 a에 넣고, 본래의 a값을 b에 넣어 바꾸는 함수다. 당신은 이 함수를 2개 Int 값을 바꾸기위해 호출할 수 있다.
 
@@ -150,7 +150,7 @@ swapTwoStrings(&someString, &anotherString)
 
 ```
 참고
- 스택의 컨셉은 네비게이션 계층에 뷰컨트롤러 모델인 UINavigationController 클래스에 사용되어 진다. “last in, first out” (후입선출 얘기) push , pop 나옴
+ 스택의 컨셉은 네비게이션 계층에 뷰컨트롤러 모델인 UINavigationController 클래스에 사용되어 진다. “last in, first out” (후입선출 얘기)
 ```
 
 아래 그림은 스탯에서 push / pop 동작을 보여준다.
