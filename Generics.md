@@ -339,10 +339,9 @@ if let foundIndex = findStringIndex(strings, "llama") {
 // prints "The Index llama is 2”
 
 ```
+ 값의 index를 찾는 원리는 오직 문자열만 가능하므로 유연하지 않다. 당신은 같은 기능의 문자열 값 대신 T 타입으로 바꿔서 generic 함수 findeIndex를 작성할 수 있다.
 
-
-생략
-
+ 여기 findStringIndex의 generic 버전의 findIndex를 작성했다. 반환 타입은 여전히 Int? 다, 이유는 옵셔널 index숫자 반환과 배열에 값이 없을 경우가 있기 때문이다. 경고한다, 이 함수는 컴파일 되지 않는다, 예제 다음에 이유를 밝히겠다:
 ```
 func findIndex<T>(array: [T], _ valueToFind: T) -> Int? {
     for (index, value) in array.enumerate() {
