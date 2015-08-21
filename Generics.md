@@ -393,14 +393,254 @@ func findIndex<T: Equatable>(array: [T], _ valueToFind: T) -> Int? {
 let doubleIndex = findIndex([3.14159, 0.1, 0.25], 9.3)
 // doubleIndex is an optional Int with no value, because 9.3 is not in the array
 
-
-
 let stringIndex = findIndex(["Mike", "Malcolm", "Andrea"], "Andrea")
-
 // stringIndex is an optional Int containing a value of 2
+```
+### 연관 타입 Associated Types
+ 프로토콜을 정의할 때, 때때로 프로토콜 정의부분에 associated types를 하나 이상 선언하면 유용하다. 연관 타입은 placeholder 이름 (또는 alias)을 프로토콜의 일부분에 사용되어지는 타입에 준다. 연관타입을 위한 actual type은 프로토콜이 채용될때까지 지정되지 않는다. 연관타입은 typealias 키워드로 지정된다.
+
+#### 연관 타입 사용 Associated Types in Action
+ 여기 Container 프로토콜의 예제다, ItemType의 연관타입이 선언되었다:
+```
+protocol Container {
+    typealias ItemType
+
+    mutating func append(item: ItemType)
+
+    var count: Int { get }
+
+    subscript(i: Int) -> ItemType { get }
+
+}
 
 ```
 
+ Container 프로토콜은 3가지 필요한 능력을 선언했다:
+
+append(_:) 메소드를 통해 새로운 아이템을 컨테이너에 추가할 수 있다.
+count 프로퍼티를 통해 Int 값을 반환하는 컨테이너의 아이템의 갯수에 접근 가능하다.
+Int 인덱스 값을 얻는 서브스크립트로 컨테이너의 각 아이템을 가져올 수 있다.
+
+ 이 프로토콜은 컨테이너 내에 저장하거나 허용된 아이템을 지정하지 않는다. 프로토콜은 Container에 어떤 타입을 제공하기 위한 오직 3가지 기능의 비트를 허용한다. 이 3가지 요구사항을 충족하는 한, 일치하는 타입은 추가적인 기능을 제공할 수 있다.
+
+ Container 프로토콜애 일치하는 어떤 타입이 저장하는 값의 유형을 지정할 수 있다. 특히, 컨테이너에 추가되는 올바른 아이템만이 확실해야하고, 서브스크림트에 의해 반환되는 아이템의 타입에 대해 명확해야한다.
+
+ 이 요구사항의 정의에 대해, Container 프로토콜은 컨테이너가 잡을 요소의 타입을 언급하는 방법이 필요하고, 지정된 컨테이너의 유형이 무엇인지 알 필요 없다. Container 프로토콜은 컨테이너의 요소 타입과 같은 타입을 가지는 append(_:)메소드로 넘길 값을 지정할 필요가 있다, 그리고 컨테이너의 요소 타입과 같은 컨테이너의 서브스크립트에 의한 리턴되는 값도 마찬가지.
+
+ 이것은 성취하기 위해, Container 프로토콜은 ItemType이라는 연관 타입을 typealias ItemType 라고 써서 선언한다. 프로토콜은 ItemType은 별명을 정의하지 않는다-별명 정보는 일치하는 타입이 제공되어 남는다. 그럼에도 불구하고, ItemType 별명은 Container내 아이템의 유형을 참조 방법을 제공한다, 그리고 append(_:) 메소드와 서브스크립트를 사용하기 위한 타입을 정의하고, Container의 예상 행동을 강제함을 확실히 한다.
+
+ 여기 Container 프로토콜에 일치에 적합한 이전에, non-generic IntStack 유형의 버전이 있다.
+```
+struct IntStack: Container {
+    // original IntStack implementation
+
+    var items = [Int]()
+
+    mutating func push(item: Int) {
+
+        items.append(item)
+
+    }
+
+    mutating func pop() -> Int {
+
+        return items.removeLast()
+
+    }
+
+    // conformance to the Container protocol
+
+    typealias ItemType = Int
+
+    mutating func append(item: ItemType) {
+
+        self.push(item)
+
+    }
+
+    var count: Int {
+
+        return items.count
+
+    }
+
+    subscript(i: Int) -> Int {
+
+        return items[i]
+
+    }
+
+}
+
+```
+ IntStack 유형은 Container 포로토콜의 요구사항의 3가지를 모두 구현했다, 그리고 IntStack 유형의 기존 기능에 충족한 요구사항에 각각의 경우를 감싼다.
+ 더구나, IntStack은 Int의 타입 사용에 적합한 ItemType을 Container의 구현을 명확하게 한다. typealias ItemType = Int의 정의는 Container 프로토콜을 구현을 위해 ItemType의 추상적인 타입을 구체적인 Int 타입을 구체화하도록  바꾼다.
+
+ Swift의 타입 추론 덕분에, 당신은 실제로 IntStack의 정의부분에 Int의 구체적인 ItemType 선언이 필요하지 않다. 이유는 IntStack은 Container 프로토콜의 모든 요구사항에 일치한기 때문에, Swift는 적합한 ItemType을 사용할 수 있고, append(_:) 메소드의 item 파라미터와 서브스크립트의 반환 타입을 단순하게 볼 수 있다. 오히려, typealias ItemType = Int 줄을 삭제한다고 하더라도, 모든게 여진히 동작하는데, 이유는 ItemType이 명확하게 사용되기 때문이다.
+
+ 당신은 또한 Container 프로콜에 일치하는generic Stack 유형을 만들 수 있다:
+```
+struct Stack<T>: Container {
+    // original Stack<T> implementation
+
+    var items = [T]()
+
+    mutating func push(item: T) {
+
+        items.append(item)
+
+    }
+
+    mutating func pop() -> T {
+
+        return items.removeLast()
+
+    }
+
+    // conformance to the Container protocol
+
+    typealias ItemType = T
+
+    mutating func append(item: ItemType) {
+
+        self.push(item)
+
+    }
+
+    var count: Int {
+
+        return items.count
+
+    }
+
+    subscript(i: Int) -> T {
+
+        return items[i]
+
+    }
+
+}
+
+```
+이 시간, placeholder 타입 파라미터 T는 append(_:) 메소드의 item 파라미터와 서브스크립트로 반환되는 타입의 타입으로 사용되어 진다. Swift는 그러므로 T가 특정 컨테이너를 위한 ItemType으로서 적합한 타입으로 사용하도록 추론할 수 있다.
+
+#### 지정한 연관타입에 기존 타입을 확장 Extending an Existing Type To Specify an Associated Type
+
+ 당신은 일치하는 프로토콜을 더해 기존 타입을 확장할 수 있다. Adding Protocol Conformance with an Extension에 설명. 여기에 연관 타입과 함께 프로토콜이 포함되어 있다.
+
+ Swift의 Array타입은 이미 append(_:) 메소드, count 프로퍼티, 그리고 Int index의 요소를 돌려받는 서브스크립트도 제공한다. 이 3가지 능력은 Container 프로토콜의 요구사항에 맞는다. 이것의 의미는 당신은 Array에 일치하는 프로토콜을 단순하게 선언한 Container 프로토콜과 일치한 Array를 확장 가능하다는 것이다. 당신은 비어있는 extension을 선언한다, Declaring Protocol Adoption with an Extension에 설명:
+
+```
+extension Array: Container {}
+```
+ Array의 기존 append(_:) 메소드와 서브스크립트는 Swift가 ItemType을 위한 적절한 타입을 추론하여 사용하도록 한다. extension을 정의한 후, 당신은 Container 같은 Array를 사용할 수 있다.
+
+### Where Clauses
+ 타입 제약, Type Constraints 설명. 당신은 generic 함수 또는 타입에 연관된 타입 파라미터의 요구사항을 정의할 수 있다.
+
+ 또한 연관 타입을 위한 요구사항 정의를 유용하게 한다. 당신은 타입 파라미터 목록 부분에 where절을을 정의한다. where 절은 연관 타입이 확실한 프로토콜, 같은 확실한 타입 파라미터와 연관 연관 타입인 and/or에 일치하는 연관타입을 필요로 할 수 있다. 당신은 where키워드로 타입 파라미터의 목록 뒤에 where절을 작성한다, 그리고/또는 연관 타입과 타입사이에 하나 이상의 같은 관계가 따른다.
+
+ 아래 예제에는 allItemMatch인 generic 함수를 정의한다, 2개의 Container 인스턴스가 같은 아이템을 포함하고 잇는 경우를 확인한다. 함수는 모든 아이템이 일치하면 true를 반환, 아니라면 false 값인 Boolean 값을 반환한다.
+
+ 2개 컨테이너에서 확인이 컨테이너의 같은 타입일 필요가 없다(비록 그렇다 하더라도), 그러나 아이템의 같은 타입을 가질 수 있다. 이 요구사항은 where절과 타입 제약의 조합을 통해 표현된다.
+
+```
+func allItemsMatch<
+
+    C1: Container, C2: Container
+
+where C1.ItemType == C2.ItemType, C1.ItemType: Equatable>
+
+    (someContainer: C1, _ anotherContainer: C2) -> Bool {
+
+        
+
+        // check that both containers contain the same number of items
+
+        if someContainer.count != anotherContainer.count {
+
+            return false
+
+        }
+
+        
+
+        // check each pair of items to see if they are equivalent
+
+        for i in 0..<someContainer.count {
+
+            if someContainer[i] != anotherContainer[i] {
+
+                return false
+
+            }
+
+        }
+
+        
+
+        // all items match, so return true
+
+        return true
+
+        
+
+}
+```
+
+ 이 함수는 someContainer와 anotherContainer 2개 인수를 가진다. someContainer는 C1 타입의 인수다, 그리고 anotherContainer는 C2타입의 인수다. C1과 C2 둘다 placeholder 타입 파라미터이며, 2개의 컨테이너 타입은 함수가 호출될 때 결정된다.
+
+ 함수의 타입 파라미터 목록은 2개의 타입 파라미터 요구사항에 위치한다.
+
+C1은 Container 프로토콜에 일치해야한다. (C1: Container)
+C2 또한 Container 프로토콜에 일치해야한다. (C2: Container)
+C1의 ItemType은 C2의 ItemType과 일치해야 한다. (C1.ItemType == C2.ItemType)
+C1의 ItemType은 Equatable 프로토콜에 일치해야 한다. (C1.ItemType: Equatable)
+
+ 셋째와 네번째 요구사항은 where의 부분에 정의했다, 그리고 함수의 타입 파라미터 목록의 부분에 where 키워드로 뒤에 썼다.
+
+ 이 요구사항은 의미한다:
+
+someContainer는 C1 타입의 컨테이너다.
+anotherContainer는 C2 타입의 컨테이너가.
+someContainer와 anotherContainer는 아이템의 같은 타입을 포함한다.
+someContainer내 아이템은 다른 요소들과 다르다는 것을 != 연산자로 확인할 수 있다.
+
+ 셋째와 네번째 요구사항은 anotherContainer != 연산자를 확인할 수 있는 아이템의 결합을 의미한다, 이유는 someContainer내 아이템과 정확하게 같은 타입이기 때문이다.
+
+ 이 요구사항은 allItemsMatch(_:_:) 함수로 2개 컨테이너를 심지어 컨테이너 타입이 달라도 비교할 수 있다.
+
+ allItemsMatch(_:_:) 함수는 아이템의 같은 숫자가 컨테이너 둘다 포함되어 있는지 확인을 시작한다. 만약 아이템의 다른 숫자가 포함되어 있다면, 서로 일치할 수 있는 방법이 없으며, 이 함수는 false를 반환한다.
+
+ 이 검사를 마친 후, 함수는 for-in loop 와 half-open범위 연산자 (..<) 통해 someContainer의 모든 항목을 거친다.각 아이템에 대해서, 함수는 someContainer는 anotherContainer내 아이템과 일치하는지 일치하지 않는지 확인한다. 만약 2개의 아이템이 같지 않다면, 2개의 컨테이터가 일치하지않다면, 함수는 false를 반환한다.
+
+ loop가 불일치를 찾지 못하고 끝난다면, 2개 컨테이너가 일치한다면, 함수는 true를 반환한다.
+
+ 여기 allItemsMatch(_:_:) 함수가 어떻게 동작하는지 보라:
+
+```
+var stackOfStrings = Stack<String>()
+stackOfStrings.push("uno")
+stackOfStrings.push("dos")
+stackOfStrings.push("tres")
+
+var arrayOfStrings = ["uno", "dos", "tres"]
+
+if allItemsMatch(stackOfStrings, arrayOfStrings) {
+
+    print("All items match.")
+
+} else {
+
+    print("Not all items match.")
+
+}
+
+// prints "All items match.”
+
+```
+
+ 위 예제는 String값을 저장하는  Stack 인스턴스를 만든다. 그리고 스택에 3개의 문자열을 push한다. 예제 또한 Array 인스턴스를 초기화하고 스택에 같은 3개의 문자열을 포함한다. 비록 스택 배열이 다른 타입이라도, 모두 Container 프로토콜에 일치하고, 값의 모두 같은 타입을 포함하고 있다. 당신은 2개 컨테이너에 인수들과 함께allItemsMatch(_:_:) 함수를 호출할 수 있다. 위의 예제에서, allItemsMatch(_:_:) 함수를 제대로 2개 컨테이너 매치 내에서 모든 아이템을 보고한다.
 
 
 
